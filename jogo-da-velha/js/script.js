@@ -30,7 +30,6 @@ function startGame(el) {
 }
 function changeBox() {
     jogadas++;
-    console.log(jogadas);
     jogadoratual = selecionaJogador();
     this.innerHTML = jogadoratual;
     this.removeEventListener('click', changeBox);
@@ -67,7 +66,6 @@ function Vencedor() {
 
     if( idVencedor.innerHTML !==""){
         endGame(box);
-        console.log("O erro esta no vencedor");
     }else if(idVencedor.innerHTML =="" && jogadas == 9){
         idVencedor.innerHTML ="Empate";
         endGame(box);
