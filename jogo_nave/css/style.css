@@ -17,87 +17,85 @@ body {
     background-image: url("../imgs/fundo.jpg");
     background-size: cover;
 }
-
-#container {
-    width: 90vw;
-    max-width: 1024px;
-    height: 100vh;
-    height: 600px;
-    margin: 30px auto;
-    background-image: url("../imgs/fundo_game.jpg");
-    border: 5px solid brown;
+@media screen {
+    #container {
+        width: 90vw;
+        max-width: 1024px;
+        height: 100vh;
+        max-height: 650px;
+        margin: 30px auto;
+        border: 5px solid brown;
+    }
+    #container h1 {
+        color: red;
+        font-size: 48px;
+    }
+    
+    #fundoGame {
+        width: 100%;
+        height: 100%;
+        background-image: url("../imgs/fundo_game.jpg");
+        position: relative;
+        overflow: hidden;
+    }
+    #fundoGame > *{
+        position: absolute;
+    }
+    
+    #inicio {
+        padding: 30px;
+        width: 80%;
+        max-width: 300px;
+        background-color: #dddddd;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #inicio * {
+        margin-bottom: 15px;
+    }
+    #inicio ul li {
+        list-style-type: none;
+    }
+    #inicio button {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        padding: 5px 10px;
+        color: white;
+        background-color: #881111;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+    }
+    
+    #jogador {
+        width: 256px;
+        height: 66px;
+        left: 8px;
+        top: 179px;
+        background-image: url('../imgs/apache.png');
+    }
+    #inimigo1 {
+        width: 256px;
+        height: 66px;
+        left: 689px;
+        top: 253px;
+        background-image: url("../imgs/inimigo1.png");
+    }
+    #inimigo2 {
+        width: 165px;
+        height: 70px;
+        left: 775px;
+        top: 447px;
+        background-image: url("../imgs/inimigo2.png");
+    }
+    #amigo{
+        width: 44px;
+        height: 51px;
+        left: 10px;
+        top:464px;
+        background-image: url('../imgs/amigo.png');
+    }
 }
 
-#container h1 {
-    color: red;
-    font-size: 48px;
-}
-
-#fundoGame {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-#fundoGame > *{
-    position: absolute;
-}
-#inicio {
-    padding: 30px;
-    width: 80%;
-    max-width: 300px;
-    background-color: #dddddd;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#inicio * {
-    margin-bottom: 15px;
-}
-
-#inicio ul li {
-    list-style-type: none;
-}
-
-#inicio button {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    padding: 5px 10px;
-    color: white;
-    background-color: #881111;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-#jogador {
-    width: 256px;
-    height: 66px;
-    left: 8px;
-    top: 179px;
-    background-image: url('../imgs/apache.png');
-}
-
-#inimigo1 {
-    width: 256px;
-    height: 66px;
-    left: 689px;
-    top: 253px;
-    background-image: url("../imgs/inimigo1.png");
-}
-
-#inimigo2 {
-    width: 165px;
-    height: 70px;
-    left: 775px;
-    top: 447px;
-    background-image: url("../imgs/inimigo2.png");
-}
-#amigo{
-    width: 44px;
-    height: 51px;
-    left: 10px;
-    top:464px;
-    background-image: url('../imgs/amigo.png');
-}
