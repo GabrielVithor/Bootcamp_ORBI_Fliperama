@@ -2,11 +2,11 @@
 
 .anima1{
     background-image: url("../imgs/apache.png");
-    animation: play 0.16s steps(2) infinite;
+    animation: play 0.133s steps(2) infinite;
 
-    -webkit-animation:play 0.16s steps(2) infinite ;
-    -moz-animation: play 0.16s steps(2) infinite;
-    -o-animation: play 0.16s steps(2) infinite;
+    -webkit-animation:play 0.133s steps(2) infinite ;
+    -moz-animation: play 0.133s steps(2) infinite;
+    -o-animation: play 0.133s steps(2) infinite;
     
 }
 
@@ -17,11 +17,11 @@
 
 .anima2{
     background-image: url("../imgs/inimigo1.png");
-    animation: play 0.16s steps(2) infinite;
+    animation: play 0.133s steps(2) infinite;
 
-    -webkit-animation:play 0.16s steps(2) infinite ;
-    -moz-animation: play 0.16s steps(2) infinite;
-    -o-animation: play 0.16s steps(2) infinite;
+    -webkit-animation:play 0.133s steps(2) infinite ;
+    -moz-animation: play 0.133s steps(2) infinite;
+    -o-animation: play 0.133s steps(2) infinite;
 }
 
 

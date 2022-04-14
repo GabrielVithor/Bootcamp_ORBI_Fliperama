@@ -56,7 +56,7 @@ $(function () {
         fundogame.append('<div id="inimigo2"></div>');
         fundogame.append('<div id="amigo" class="anima3"></div>');
         //Game loop
-        jogo.timer = setInterval(loop, 16);
+        jogo.timer = setInterval(loop, 13.3);
     })
 
     function loop() {
@@ -77,7 +77,7 @@ $(function () {
         const jogador = $("#jogador");
 
         if (pressionou[teclas.W]) {
-            moverObjeto(jogador, "top", 5, 5);
+            moverObjeto(jogador, "top", 5, 8);
         }
 
         if (pressionou[teclas.S]) {
@@ -95,7 +95,7 @@ $(function () {
 
     //Inimigo1
     function moveInimigo1() {
-        const velocidade = 4;
+        const velocidade = 5;
         const inimigo1 = $("#inimigo1");
         const positionX = parseInt(inimigo1.css('left'));
         const limit = - parseInt(inimigo1.css('width'));
