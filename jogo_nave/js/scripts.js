@@ -9,6 +9,10 @@ $(function () {
         space: 32,
     }
     var jogo = {};
+    var pontos=0;
+    var salvos =0;
+    var perdidos=0;
+    var energiaAtual = 3;
 
     //Validações e loops
     pressionou = [];
@@ -41,11 +45,16 @@ $(function () {
         var inimigo1YRandom = parseInt(Math.random() * 350);
         var inimigo2X;
         var amigoX;
-        var pontos=0;
-        var salvos =0;
-        var perdidos=0;
-        var energiaAtual = 3;
 
+        var somExplosao = document.getElementById("somExplosao");
+        var somGameOver = document.getElementById("somGameover");
+        var somDisparo = document.getElementById("somDisparo");
+        var musica = document.getElementById("musica");
+        var somResgate = document.getElementById("somResgate");
+        var somPerdido = document.getElementById("somPerdido");
+
+        musica.addEventListener("ended",()=>{musica.currentTime = 0;musica.play();});
+        musica.play();
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
             posicao = parseInt(sprite.css(position));
@@ -123,6 +132,7 @@ $(function () {
 
         function disparo() {
             if (podeAtirar == true) {
+                somDisparo.play()
                 podeAtirar = false;
                 const top = parseInt(jogador.css("top"));
                 const positionX = parseInt(jogador.css("left"));
@@ -131,7 +141,7 @@ $(function () {
                 fundogame.append("<div id='disparo'></div>");
                 $("#disparo").css("top", tiroY);
                 $("#disparo").css("left", tiroX);
-                var tempoDisparo = window.setInterval(executaDisparo, 13.3)
+                var tempoDisparo = window.setInterval(executaDisparo, 6.6ss);
             }
 
             function executaDisparo() {
@@ -183,7 +193,6 @@ $(function () {
         //Colisao
         function colisao() {
             const inimigo2 = $("#inimigo2");
-
             const colisao2 = jogador.collision(inimigo2);
             const colisao3 = $("#disparo").collision(inimigo1);
             const colisao4 = $("#disparo").collision(inimigo2);
@@ -221,6 +230,7 @@ $(function () {
                     amigo.remove();
                     reposiciona("amigo", 6000, "anima3");
                     salvos++;
+                    somResgate.play();
                     break;
                 case colisao6.length > 0:
                     morteAmigo();
@@ -228,11 +238,13 @@ $(function () {
                     inimigo2.remove();
                     reposiciona("inimigo2", 5000);
                     perdidos++;
+                    somPerdido.play();
             }
         }
 
         function explosao(x, y) {
             fundogame.append("<div id='explosao1'></div>");
+            somExplosao.play()
             var explosao = $("#explosao1");
             explosao.css("top", y);
             explosao.css("left", x);
@@ -283,6 +295,5 @@ $(function () {
         function vidas(){
             $("#vida").css("background-image",'url('+"'imgs/energia"+energiaAtual+".png'"+')')
         }
-
     })
 })
