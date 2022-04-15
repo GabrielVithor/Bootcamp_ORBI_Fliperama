@@ -97,6 +97,12 @@ body {
         top:464px;
         background-image: url('../imgs/amigo.png');
     }
+    #amigoMorte{
+        background-image: url("../imgs/amigo_morte.png");
+        width: 44px;
+        height: 51px;
+        top:464px;
+    }
     #disparo{
         width: 50px;
         height: 8px;
@@ -112,6 +118,19 @@ body {
         height: 87px;
         background-image: url("../imgs/explosao.png");
     }
-
+    #placar{
+        height: 50px;
+        width: 750px;
+        left: 5px;
+        top:590px;
+        color: white;
+    }
+    #vida{
+        width: 140px;
+        height: 38px;
+        top:7px;
+        right: 7px;
+        background-image: url("../imgs/energia3.png");
+    }
 }
 

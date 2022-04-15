@@ -29,7 +29,16 @@
     background-image: url("../imgs/amigo.png");
     animation: play2 0.8s steps(12) infinite;
 }
+
+.anima4{
+    background-image: url("../imgs/amigo_morte.png");
+    animation: play4 0.8s steps(7) infinite;
+}
 @keyframes play2{
     from{background-position: 0px;}
     to{background-position: -528px;}
+}
+@keyframes play4 {
+    from{background-position: 0px;}
+    to{background-position: 308px; display: none;}
 }

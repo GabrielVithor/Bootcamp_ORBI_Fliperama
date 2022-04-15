@@ -25,18 +25,26 @@ $(function () {
     //Funções
     start.click(function () {
         $("#inicio").hide();
+        //Constantes e variaveis
         fundogame.append('<div id="jogador" class="anima1"></div>');
         fundogame.append('<div id="inimigo1" class="anima2"></div>');
         fundogame.append('<div id="inimigo2"></div>');
         fundogame.append('<div id="amigo" class="anima3"></div>');
+        fundogame.append("<div id='placar'></div>");
+        fundogame.append("<div id='vida'></div>")
+        const finaljogo = false;
         const jogador = $("#jogador");
-
         const inimigo1 = $("#inimigo1");
+        var amigo = $("#amigo");
         var inimigo1X;
         var inimigo1Y;
         var inimigo1YRandom = parseInt(Math.random() * 350);
-
-        //Constantes e variaveis
+        var inimigo2X;
+        var amigoX;
+        var pontos=0;
+        var salvos =0;
+        var perdidos=0;
+        var energiaAtual = 3;
 
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
@@ -61,6 +69,15 @@ $(function () {
                 sprite.css(direcao, move);
             }
         };
+
+        function respawn(value, el) {
+            if (value) {
+                el.css("left", "100%");
+                if (el == inimigo1) {
+                    el.css("top", inimigo1YRandom);
+                }
+            }
+        }
         //Game loop
         jogo.timer = setInterval(loop, 13.3);
 
@@ -71,11 +88,13 @@ $(function () {
             moveInimigo2();
             moveAmigo();
             colisao();
+            placar();
+            vidas();
         }
 
         function moveFundo() {
             esquerda = parseInt(fundogame.css("background-position"));
-            fundogame.css("background-wwwwposition", esquerda - 1)
+            fundogame.css("background-position", esquerda - 1)
         }
 
         //Jogador
@@ -103,7 +122,6 @@ $(function () {
         var podeAtirar = true;
 
         function disparo() {
-            console.log("Tiro")
             if (podeAtirar == true) {
                 podeAtirar = false;
                 const top = parseInt(jogador.css("top"));
@@ -136,34 +154,27 @@ $(function () {
             const limit = (inimigo1X <= maxX);
             const velocidade = 5;
             inimigo1YRandom = parseInt(Math.random() * 350);
-            respawnInimigo1(limit);
+            respawn(limit, inimigo1);
             moverObjeto(inimigo1, "left", maxX, velocidade);
         }
 
-        function respawnInimigo1(el) {
-            if (el) {
-                inimigo1.css("left", "100%");
-                inimigo1.css("top", inimigo1YRandom);
-            }
-        }
+
         //Inimigo2
         function moveInimigo2() {
-            const velocidade = 2;
             const inimigo2 = $("#inimigo2");
-            const positionX = parseInt(inimigo2.css('left'));
+            const velocidade = 2;
+            inimigo2X = parseInt(inimigo2.css('left'));
             const limit = -parseInt(inimigo2.css('width'));
-            if (positionX <= limit) {
-                inimigo2.css("left", "100%");
-            }
+            respawn(inimigo2X <= limit, inimigo2);
             moverObjeto(inimigo2, "left", limit, velocidade);
         }
         //Amigo
         function moveAmigo() {
             const velocidade = 1;
-            const amigo = $("#amigo");
-            const positionX = parseInt(amigo.css('right'));
+            amigo = $("#amigo");
+            amigoX = parseInt(amigo.css('right'));
             const limit = -parseInt(amigo.css('width'));
-            if (positionX <= limit) {
+            if (amigoX <= limit) {
                 amigo.css("left", "0");
             }
             moverObjeto(amigo, "right", limit, velocidade);
@@ -171,30 +182,107 @@ $(function () {
 
         //Colisao
         function colisao() {
-            var colisao1 = jogador.collision(inimigo1);
-            limit = (colisao1.length > 0)
-            if (limit) {
-                explosao1(inimigo1X, inimigo1Y);
-                respawnInimigo1(limit);
+            const inimigo2 = $("#inimigo2");
+
+            const colisao2 = jogador.collision(inimigo2);
+            const colisao3 = $("#disparo").collision(inimigo1);
+            const colisao4 = $("#disparo").collision(inimigo2);
+            const colisao5 = jogador.collision(amigo);
+            const colisao6 = amigo.collision(inimigo2)
+            const colisao1 = jogador.collision(inimigo1);
+
+            switch (true) {
+                case colisao1.length > 0:
+                    explosao(inimigo1X, inimigo1Y);
+                    respawn(colisao1.length > 0, inimigo1);
+                    energiaAtual--;
+                    break;
+                case colisao2.length > 0:
+                    explosao(inimigo2X, inimigo2.css("top"));
+                    inimigo2.remove();
+                    reposiciona("inimigo2", 5000);
+                    console.log("colisao2")
+                    energiaAtual--;
+                    break;
+                case colisao3.length > 0:
+                    explosao(inimigo1X, inimigo1Y);
+                    $("#disparo").css('left', 1000);
+                    respawn(colisao3.length > 0, inimigo1);
+                    pontos +=100;
+                    break;
+                case colisao4.length > 0:
+                    explosao(inimigo2X, inimigo2.css("top"));
+                    $("#disparo").css('left', 1000);
+                    inimigo2.remove();
+                    reposiciona("inimigo2", 5000);
+                    pontos +=50;
+                    break;
+                case colisao5.length > 0:
+                    amigo.remove();
+                    reposiciona("amigo", 6000, "anima3");
+                    salvos++;
+                    break;
+                case colisao6.length > 0:
+                    morteAmigo();
+                    reposiciona("amigo", 6000, "anima3");
+                    inimigo2.remove();
+                    reposiciona("inimigo2", 5000);
+                    perdidos++;
             }
         }
 
-        function explosao1(x, y) {
+        function explosao(x, y) {
             fundogame.append("<div id='explosao1'></div>");
             var explosao = $("#explosao1");
-            explosao.css("top",y);
-            explosao.css("left",x);
-            explosao.animate({width:250,opacity:0},300);
+            explosao.css("top", y);
+            explosao.css("left", x);
+            explosao.animate({
+                width: 250,
+                opacity: 0
+            }, 300);
 
-            var tempoExposao = window.setInterval(removeExplosao,300);
-            function removeExplosao(){
+            var tempoExposao = window.setInterval(removeExplosao, 200);
+
+            function removeExplosao() {
                 explosao.remove();
                 window.clearInterval(tempoExposao);
                 tempoExposao = null;
             }
         }
 
-        var finaljogo =false;
+        function reposiciona(stringEl, delay, stringClass) {
+            var tempoColisao2 = window.setInterval(reposiciona2, delay);
+
+            function reposiciona2() {
+                window.clearInterval(tempoColisao2)
+                tempoColisao2 = null;
+                if (finaljogo == false) {
+                    fundogame.append("<div id='" + stringEl + "'class='" + stringClass + "'></div>")
+                }
+            }
+        }
+
+        function morteAmigo() {
+            fundogame.append("<div id='amigoMorte' class='anima4'></div>")
+            $("#amigoMorte").css("right", amigoX)
+            amigo.remove();
+
+            var tempoMorte = window.setInterval(morte, 2000);
+
+            function morte() {
+                window.clearInterval(tempoMorte);
+                tempoMorte = null;
+                $("#amigoMorte").remove();
+            }
+        }
+
+        function placar(){
+            $("#placar").html("<h2>Pontos: "+pontos+" | Salvos: "+salvos+" |Perdidos: "+perdidos+"</h2>")
+        }
+
+        function vidas(){
+            $("#vida").css("background-image",'url('+"'imgs/energia"+energiaAtual+".png'"+')')
+        }
 
     })
 })
