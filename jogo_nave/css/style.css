@@ -97,5 +97,21 @@ body {
         top:464px;
         background-image: url('../imgs/amigo.png');
     }
+    #disparo{
+        width: 50px;
+        height: 8px;
+        background-image: url("../imgs/disparo.png");
+    }
+    #explosao1{
+        width: 15px;
+        height: 87px;
+        background-image: url("../imgs/explosao.png");
+    }
+    #explosao2{
+        width: 15px;
+        height: 87px;
+        background-image: url("../imgs/explosao.png");
+    }
+
 }
 
