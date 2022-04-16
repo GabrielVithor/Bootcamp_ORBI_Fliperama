@@ -1,14 +1,9 @@
-@font-face {
-    font-family: "Game";
-    src: url('../fontes/ANODETONOONE.TTF');
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 * {
     padding: 0;
     margin: 0;
     box-sizing: 0;
-    font-family: 'Game';
-}
+    font-family: 'Press Start 2P', cursive;}
 
 html,
 body {
@@ -17,6 +12,7 @@ body {
     background-image: url("../imgs/fundo.jpg");
     background-size: cover;
 }
+
 @media screen {
     #container {
         width: 90vw;
@@ -26,11 +22,12 @@ body {
         margin: 30px auto;
         border: 5px solid brown;
     }
+
     #container h1 {
         color: red;
         font-size: 48px;
     }
-    
+
     #fundoGame {
         width: 100%;
         height: 100%;
@@ -38,28 +35,31 @@ body {
         position: relative;
         overflow: hidden;
     }
-    #fundoGame > *{
+
+    #fundoGame>* {
         position: absolute;
     }
-    
-    #inicio {
+
+    #inicio,#fim {
         padding: 30px;
         width: 80%;
-        max-width: 300px;
+        max-width: 450px;
         background-color: #dddddd;
         text-align: center;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    #inicio * {
+
+    #inicio * ,#fim *{
         margin-bottom: 15px;
     }
+
     #inicio ul li {
         list-style-type: none;
     }
-    #inicio button {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+    #inicio button ,#fim button{
         padding: 5px 10px;
         color: white;
         background-color: #881111;
@@ -68,7 +68,7 @@ body {
         cursor: pointer;
         font-size: 24px;
     }
-    
+
     #jogador {
         width: 256px;
         height: 66px;
@@ -76,6 +76,7 @@ body {
         top: 179px;
         background-image: url('../imgs/apache.png');
     }
+
     #inimigo1 {
         width: 256px;
         height: 66px;
@@ -83,6 +84,7 @@ body {
         top: 253px;
         background-image: url("../imgs/inimigo1.png");
     }
+
     #inimigo2 {
         width: 165px;
         height: 70px;
@@ -90,47 +92,62 @@ body {
         top: 447px;
         background-image: url("../imgs/inimigo2.png");
     }
-    #amigo{
+
+    #amigo {
         width: 44px;
         height: 51px;
         left: 10px;
-        top:464px;
+        top: 464px;
         background-image: url('../imgs/amigo.png');
     }
-    #amigoMorte{
+
+    #amigoMorte {
         background-image: url("../imgs/amigo_morte.png");
         width: 44px;
         height: 51px;
-        top:464px;
+        top: 464px;
     }
-    #disparo{
+
+    #disparo {
         width: 50px;
         height: 8px;
         background-image: url("../imgs/disparo.png");
     }
-    #explosao1{
+
+    #explosao1 {
         width: 15px;
         height: 87px;
         background-image: url("../imgs/explosao.png");
     }
-    #explosao2{
+
+    #explosao2 {
         width: 15px;
         height: 87px;
         background-image: url("../imgs/explosao.png");
     }
-    #placar{
+
+    #placar {
         height: 50px;
         width: 750px;
         left: 5px;
-        top:590px;
+        top: 590px;
         color: white;
     }
-    #vida{
+
+    #vida {
         width: 140px;
         height: 38px;
-        top:7px;
+        top: 7px;
         right: 7px;
         background-image: url("../imgs/energia3.png");
     }
-}
 
+    #fim h3 {
+        font-size: 20px;
+        color: #603A03;
+
+    }
+
+
+
+}

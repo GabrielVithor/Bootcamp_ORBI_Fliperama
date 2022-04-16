@@ -9,9 +9,9 @@ $(function () {
         space: 32,
     }
     var jogo = {};
-    var pontos=0;
-    var salvos =0;
-    var perdidos=0;
+    var pontos = 0;
+    var salvos = 0;
+    var perdidos = 0;
     var energiaAtual = 3;
 
     //Validações e loops
@@ -25,9 +25,9 @@ $(function () {
     })
 
     //Loops
-
+    start.click(inicio);
     //Funções
-    start.click(function () {
+     function inicio(){
         $("#inicio").hide();
         //Constantes e variaveis
         fundogame.append('<div id="jogador" class="anima1"></div>');
@@ -36,7 +36,7 @@ $(function () {
         fundogame.append('<div id="amigo" class="anima3"></div>');
         fundogame.append("<div id='placar'></div>");
         fundogame.append("<div id='vida'></div>")
-        const finaljogo = false;
+        var finaljogo = false;
         const jogador = $("#jogador");
         const inimigo1 = $("#inimigo1");
         var amigo = $("#amigo");
@@ -53,8 +53,12 @@ $(function () {
         var somResgate = document.getElementById("somResgate");
         var somPerdido = document.getElementById("somPerdido");
 
-        musica.addEventListener("ended",()=>{musica.currentTime = 0;musica.play();});
+        musica.addEventListener("ended", () => {
+            musica.currentTime = 0;
+            musica.play();
+        });
         musica.play();
+
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
             posicao = parseInt(sprite.css(position));
@@ -88,7 +92,7 @@ $(function () {
             }
         }
         //Game loop
-        jogo.timer = setInterval(loop, 13.3);
+        jogo.timer = window.setInterval(loop, 13.3);
 
         function loop() {
             moveFundo();
@@ -99,6 +103,9 @@ $(function () {
             colisao();
             placar();
             vidas();
+            if (energiaAtual < 0) {
+                GameOver();
+            }
         }
 
         function moveFundo() {
@@ -141,7 +148,7 @@ $(function () {
                 fundogame.append("<div id='disparo'></div>");
                 $("#disparo").css("top", tiroY);
                 $("#disparo").css("left", tiroX);
-                var tempoDisparo = window.setInterval(executaDisparo, 6.6ss);
+                var tempoDisparo = window.setInterval(executaDisparo, 6.6);
             }
 
             function executaDisparo() {
@@ -210,21 +217,20 @@ $(function () {
                     explosao(inimigo2X, inimigo2.css("top"));
                     inimigo2.remove();
                     reposiciona("inimigo2", 5000);
-                    console.log("colisao2")
                     energiaAtual--;
                     break;
                 case colisao3.length > 0:
                     explosao(inimigo1X, inimigo1Y);
                     $("#disparo").css('left', 1000);
                     respawn(colisao3.length > 0, inimigo1);
-                    pontos +=100;
+                    pontos += 100;
                     break;
                 case colisao4.length > 0:
                     explosao(inimigo2X, inimigo2.css("top"));
                     $("#disparo").css('left', 1000);
                     inimigo2.remove();
                     reposiciona("inimigo2", 5000);
-                    pontos +=50;
+                    pontos += 50;
                     break;
                 case colisao5.length > 0:
                     amigo.remove();
@@ -235,8 +241,6 @@ $(function () {
                 case colisao6.length > 0:
                     morteAmigo();
                     reposiciona("amigo", 6000, "anima3");
-                    inimigo2.remove();
-                    reposiciona("inimigo2", 5000);
                     perdidos++;
                     somPerdido.play();
             }
@@ -262,7 +266,7 @@ $(function () {
             }
         }
 
-        function reposiciona(stringEl, delay, stringClass) {
+        function reposiciona(stringEl, delay, stringClass = "") {
             var tempoColisao2 = window.setInterval(reposiciona2, delay);
 
             function reposiciona2() {
@@ -288,12 +292,29 @@ $(function () {
             }
         }
 
-        function placar(){
-            $("#placar").html("<h2>Pontos: "+pontos+" | Salvos: "+salvos+" |Perdidos: "+perdidos+"</h2>")
+        function placar() {
+            $("#placar").html("<h3>Pontos: " + pontos + " | Salvos: " + salvos + " |Perdidos: " + perdidos + "</h3>")
         }
 
-        function vidas(){
-            $("#vida").css("background-image",'url('+"'imgs/energia"+energiaAtual+".png'"+')')
+        function vidas() {
+            if (finaljogo == false)
+                $("#vida").css("background-image", 'url(' + "'imgs/energia" + energiaAtual + ".png'" + ')')
         }
-    })
+
+        function GameOver() {
+            $("#fundoGame > *").remove();
+            $("#fundoGame #inicio").show();
+            window.clearInterval(jogo.timer);
+            $("#fundoGame").append("<div id='fim'></div>");
+            $("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi:</p>" +"<p>Pontos: " + pontos + "</p><p>Salvos: " + salvos + "</p><p>Perdidos: " + perdidos + "</p><div id='reinicia' onClick='reiniciaJogo()'><button>Jogar Novamente</button></div>");
+            energiaAtual=3;
+            jogo.timer = null;
+            finaljogo = true;
+        }
+    }
+    reiniciaJogo = () =>{
+        $("#fim").remove();
+        musica.pause();
+        inicio();
+    }
 })
