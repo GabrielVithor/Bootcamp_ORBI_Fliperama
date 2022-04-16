@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <title>Jogo de nav</title>
+</head>
+<body>
+    <section id="container">
+        <div id="fundoGame">
+            <div id="inicio">
+                <h1>Resgate</h1>
+                <ul>
+                    <p>Controles:</p>
+                    <li>W -> Move para cima</li>
+                    <li> S -> move para baixo</li>
+                    <li>A -> move para a esquerda</li>
+                    <li>B -> move para a direita</li>
+                </ul>
+                <button>Começar</button>
+            </div>
+        </div>
+    </section>
+
+    <audio src="sons/explosao.mp3" preload="auto" id="somExplosao"></audio>
+    <audio src="sons/gameover.mp3" preload="auto" id="somGameOver"></audio>
+    <audio src="sons/som.mp3" preload="auto" id="somDisparo"></audio>
+    <audio src="sons/musica.mp3" preload="auto" id="musica"></audio>
+    <audio src="sons/perdido.mp3" preload="auto" id="somPerdido"></audio>
+    <audio src="sons/resgate.mp3" preload="auto" id="somResgate"></audio>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/collisions.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
