@@ -9,11 +9,6 @@ $(function () {
         space: 32,
     }
     var jogo = {};
-    var pontos = 0;
-    var salvos = 0;
-    var perdidos = 0;
-    var energiaAtual = 3;
-
     //Validações e loops
     pressionou = [];
     $(document).keydown(function (e) {
@@ -45,9 +40,15 @@ $(function () {
         var inimigo1YRandom = parseInt(Math.random() * 350);
         var inimigo2X;
         var amigoX;
+        var pontos = 0;
+        var salvos = 0;
+        var perdidos = 0;
+        var energiaAtual = 3;
+
+        var velocidade = 6;
 
         var somExplosao = document.getElementById("somExplosao");
-        var somGameOver = document.getElementById("somGameover");
+        var somGameOver = document.getElementById("somGameOver");
         var somDisparo = document.getElementById("somDisparo");
         var musica = document.getElementById("musica");
         var somResgate = document.getElementById("somResgate");
@@ -58,6 +59,7 @@ $(function () {
             musica.play();
         });
         musica.play();
+        somGameOver.pause();
 
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
@@ -113,6 +115,11 @@ $(function () {
             fundogame.css("background-position", esquerda - 1)
         }
 
+        var level = window.setInterval(subirLevel,1000);
+
+        function subirLevel(){
+            velocidade += 0.1
+        }
         //Jogador
         //Sprite
         function moveJogador() {
@@ -130,7 +137,8 @@ $(function () {
                 moverObjeto(jogador, "left", 5, 5);
             }
             if (pressionou[teclas.space]) {
-                disparo()
+                disparo();
+                console.log("space")
             }
         }
 
@@ -141,7 +149,7 @@ $(function () {
             if (podeAtirar == true) {
                 somDisparo.play()
                 podeAtirar = false;
-                const top = parseInt(jogador.css("top"));
+                const top  = parseInt(jogador.css("top"));
                 const positionX = parseInt(jogador.css("left"));
                 const tiroX = positionX + 190;
                 const tiroY = top + 37;
@@ -169,7 +177,6 @@ $(function () {
             inimigo1Y = parseInt(inimigo1.css('top'));
             const maxX = -parseInt(inimigo1.css('width'));
             const limit = (inimigo1X <= maxX);
-            const velocidade = 5;
             inimigo1YRandom = parseInt(Math.random() * 350);
             respawn(limit, inimigo1);
             moverObjeto(inimigo1, "left", maxX, velocidade);
@@ -179,22 +186,20 @@ $(function () {
         //Inimigo2
         function moveInimigo2() {
             const inimigo2 = $("#inimigo2");
-            const velocidade = 2;
             inimigo2X = parseInt(inimigo2.css('left'));
             const limit = -parseInt(inimigo2.css('width'));
             respawn(inimigo2X <= limit, inimigo2);
-            moverObjeto(inimigo2, "left", limit, velocidade);
+            moverObjeto(inimigo2, "left", limit, velocidade/2);
         }
         //Amigo
         function moveAmigo() {
-            const velocidade = 1;
             amigo = $("#amigo");
             amigoX = parseInt(amigo.css('right'));
             const limit = -parseInt(amigo.css('width'));
             if (amigoX <= limit) {
                 amigo.css("left", "0");
             }
-            moverObjeto(amigo, "right", limit, velocidade);
+            moverObjeto(amigo, "right", limit, 1);
         }
 
         //Colisao
@@ -229,7 +234,7 @@ $(function () {
                     explosao(inimigo2X, inimigo2.css("top"));
                     $("#disparo").css('left', 1000);
                     inimigo2.remove();
-                    reposiciona("inimigo2", 5000);
+                    reposiciona("inimigo2", velocidade *1000);
                     pontos += 50;
                     break;
                 case colisao5.length > 0:
@@ -304,12 +309,17 @@ $(function () {
         function GameOver() {
             $("#fundoGame > *").remove();
             $("#fundoGame #inicio").show();
-            window.clearInterval(jogo.timer);
             $("#fundoGame").append("<div id='fim'></div>");
             $("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi:</p>" +"<p>Pontos: " + pontos + "</p><p>Salvos: " + salvos + "</p><p>Perdidos: " + perdidos + "</p><div id='reinicia' onClick='reiniciaJogo()'><button>Jogar Novamente</button></div>");
             energiaAtual=3;
-            jogo.timer = null;
             finaljogo = true;
+            window.clearInterval(jogo.timer);
+            jogo.timer = null;
+            window.clearInterval(level);
+            level = null;
+            musica.pause();
+            somGameOver.currentTime = 3;
+            somGameOver.play();
         }
     }
     reiniciaJogo = () =>{
