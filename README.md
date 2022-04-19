@@ -11,7 +11,7 @@ Dando continuidade no bootcamp, este projeto tem como objetivo o aprimoramento d
 
 _TO DO : Aprimorar projeto, adequando ao OOJS.
 
-### Genius 🤓
+### 🤓 Genius 
 Neste projeto pude aprofundar meus estudos e me familiarizar com a utilzação de grids em css, arrays, arrows functions, loops de varredura como FOR IN e manipulação de DOM atraves do Javascript. 
 
 TO DO: inserir e efeitos sonoros e se necessário adequar projeto ao OOJS.
