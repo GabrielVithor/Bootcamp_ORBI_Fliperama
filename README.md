@@ -9,7 +9,7 @@ Primeiro jogo desenvolvido no bootcamp, para o desenvolvimento deste jogo foi ne
 ### ✈️ Jogo de nave 
 Dando continuidade no bootcamp, este projeto tem como objetivo o aprimoramento das habilidade em manipulação de DOM, sendo apresentado neste o framework JQuery e o plugin JQuery Collision, estes foram utilizados para agilizar o desenvolvimento do game. 
 
-_TO DO : Aprimorar projeto, adequando ao OOJS._ 
+_TO DO : Aprimorar projeto, adequando ao OOJS._
 
 ### 🤓 Genius 
 Neste projeto pude aprofundar meus estudos e me familiarizar com a utilzação de grids em css, arrays, arrows functions, loops de varredura como FOR IN e manipulação de DOM atraves do Javascript. 
