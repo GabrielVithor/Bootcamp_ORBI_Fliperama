@@ -61,10 +61,13 @@ $(function () {
             musica.play();
         });
         musica.play();
+<<<<<<< HEAD
 =======
 
         //Constantes e variaveis
 >>>>>>> parent of e808aea (pontos-and-scores)
+=======
+>>>>>>> parent of 4ff2026 (jogo_nava-1.1)
 
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
@@ -187,18 +190,30 @@ $(function () {
         function moveInimigo2() {
             const velocidade = 2;
             const inimigo2 = $("#inimigo2");
+<<<<<<< HEAD
             const positionX = parseInt(inimigo2.css('left'));
             const limit = -parseInt(inimigo2.css('width'));
             if (positionX <= limit) {
                 inimigo2.css("left", "100%");
             }
+=======
+            const velocidade = 2;
+            inimigo2X = parseInt(inimigo2.css('left'));
+            const limit = -parseInt(inimigo2.css('width'));
+            respawn(inimigo2X <= limit, inimigo2);
+>>>>>>> parent of 4ff2026 (jogo_nava-1.1)
             moverObjeto(inimigo2, "left", limit, velocidade);
         }
         //Amigo
         function moveAmigo() {
             const velocidade = 1;
+<<<<<<< HEAD
             const amigo = $("#amigo");
             const positionX = parseInt(amigo.css('right'));
+=======
+            amigo = $("#amigo");
+            amigoX = parseInt(amigo.css('right'));
+>>>>>>> parent of 4ff2026 (jogo_nava-1.1)
             const limit = -parseInt(amigo.css('width'));
             if (positionX <= limit) {
                 amigo.css("left", "0");
