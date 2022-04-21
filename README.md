@@ -15,3 +15,8 @@ _TO DO : Aprimorar projeto, adequando ao OOJS._
 Neste projeto pude aprofundar meus estudos e me familiarizar com a utilzação de grids em css, arrays, arrows functions, loops de varredura como FOR IN e manipulação de DOM atraves do Javascript. 
 
 _TO DO: inserir e efeitos sonoros e se necessário adequar projeto ao OOJS._
+
+### 👾 Space Shooter
+Neste jogo foi desenvolvido um proprio sistema de colisão utilizando os dados de posição de cada elemento do jogo para a verificação deste ocorrido, além de manipulação de imagens e eventos KeyDown.
+
+TO DO : adequação ao OOJS e correção de bugs
