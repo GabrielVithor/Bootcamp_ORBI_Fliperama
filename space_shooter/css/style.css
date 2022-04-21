@@ -1,0 +1,76 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,html{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Courier New', Courier, monospace;
+    background-color: #4444ff;
+}
+
+#play-area {
+    background-color: #111122;
+    background-image: url("../img/space.png");
+    height: 600px;
+    width: 600px;
+    overflow: hidden;
+}
+.teste-area{
+    width: 1px;
+    background-color: red;
+    height: 100%;
+    margin-left: -230px;
+}
+
+.game-start {
+    position: relative;
+    color: white;
+    left: 7rem;
+    top: 0px;
+}
+
+.start-button {
+    position: relative;
+    color: white;
+    top: 9rem;
+    left: 15rem;
+    cursor: pointer;
+}
+
+#player-shooter {
+    position: relative;
+    height: 70px;
+    width: 70px;
+    left: 20px;
+    top: 270px;
+}
+
+.laser {
+    position: relative;
+    width: 40px;
+    height: 20px;
+}
+
+.alien {
+    height: 50px;
+    width: 70px;
+    position: relative;
+}
+
+.alien-transition {
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.dead-alien {
+    height: 50px;
+    width: 70px;
+    position: relative;
+    opacity: 0;
+}
