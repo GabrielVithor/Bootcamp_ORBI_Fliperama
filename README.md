@@ -19,4 +19,9 @@ _TO DO: inserir e efeitos sonoros e se necessário adequar projeto ao OOJS._
 ### 👾 Space Shooter
 Neste jogo foi desenvolvido um proprio sistema de colisão utilizando os dados de posição de cada elemento do jogo para a verificação deste ocorrido, além de manipulação de imagens e eventos KeyDown.
 
-TO DO : adequação ao OOJS e correção de bugs
+_TO DO : adequação ao OOJS e correção de bugs_
+
+### 🦖 Google Dinossaur
+Neste projeto foram utilizados todos os conceitos dos projetos anteriores para a realização de um clone jogo do dinossauro do google.
+
+_TO DO : inserir efeitos sonoros, criar sistemas de niveis_
