@@ -9,11 +9,6 @@ $(function () {
         space: 32,
     }
     var jogo = {};
-    var pontos = 0;
-    var salvos = 0;
-    var perdidos = 0;
-    var energiaAtual = 3;
-
     //Validações e loops
     pressionou = [];
     $(document).keydown(function (e) {
@@ -29,28 +24,31 @@ $(function () {
     //Funções
      function inicio(){
         $("#inicio").hide();
+        //Constantes e variaveis
         fundogame.append('<div id="jogador" class="anima1"></div>');
         fundogame.append('<div id="inimigo1" class="anima2"></div>');
         fundogame.append('<div id="inimigo2"></div>');
         fundogame.append('<div id="amigo" class="anima3"></div>');
-<<<<<<< HEAD
         fundogame.append("<div id='placar'></div>");
         fundogame.append("<div id='vida'></div>")
         var finaljogo = false;
-=======
->>>>>>> parent of e808aea (pontos-and-scores)
         const jogador = $("#jogador");
-
         const inimigo1 = $("#inimigo1");
+        var amigo = $("#amigo");
         var inimigo1X;
         var inimigo1Y;
         var inimigo1YRandom = parseInt(Math.random() * 350);
-<<<<<<< HEAD
         var inimigo2X;
         var amigoX;
+        var pontos = 0;
+        var salvos = 0;
+        var perdidos = 0;
+        var energiaAtual = 3;
+
+        var velocidade = 6;
 
         var somExplosao = document.getElementById("somExplosao");
-        var somGameOver = document.getElementById("somGameover");
+        var somGameOver = document.getElementById("somGameOver");
         var somDisparo = document.getElementById("somDisparo");
         var musica = document.getElementById("musica");
         var somResgate = document.getElementById("somResgate");
@@ -61,13 +59,7 @@ $(function () {
             musica.play();
         });
         musica.play();
-<<<<<<< HEAD
-=======
-
-        //Constantes e variaveis
->>>>>>> parent of e808aea (pontos-and-scores)
-=======
->>>>>>> parent of 4ff2026 (jogo_nava-1.1)
+        somGameOver.pause();
 
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
@@ -92,6 +84,15 @@ $(function () {
                 sprite.css(direcao, move);
             }
         };
+
+        function respawn(value, el) {
+            if (value) {
+                el.css("left", "100%");
+                if (el == inimigo1) {
+                    el.css("top", inimigo1YRandom);
+                }
+            }
+        }
         //Game loop
         jogo.timer = window.setInterval(loop, 13.3);
 
@@ -102,21 +103,23 @@ $(function () {
             moveInimigo2();
             moveAmigo();
             colisao();
-<<<<<<< HEAD
             placar();
             vidas();
             if (energiaAtual < 0) {
                 GameOver();
             }
-=======
->>>>>>> parent of e808aea (pontos-and-scores)
         }
 
         function moveFundo() {
             esquerda = parseInt(fundogame.css("background-position"));
-            fundogame.css("background-wwwwposition", esquerda - 1)
+            fundogame.css("background-position", esquerda - 1)
         }
 
+        var level = window.setInterval(subirLevel,1000);
+
+        function subirLevel(){
+            velocidade += 0.1
+        }
         //Jogador
         //Sprite
         function moveJogador() {
@@ -134,7 +137,8 @@ $(function () {
                 moverObjeto(jogador, "left", 5, 5);
             }
             if (pressionou[teclas.space]) {
-                disparo()
+                disparo();
+                console.log("space")
             }
         }
 
@@ -142,11 +146,10 @@ $(function () {
         var podeAtirar = true;
 
         function disparo() {
-            console.log("Tiro")
             if (podeAtirar == true) {
                 somDisparo.play()
                 podeAtirar = false;
-                const top = parseInt(jogador.css("top"));
+                const top  = parseInt(jogador.css("top"));
                 const positionX = parseInt(jogador.css("left"));
                 const tiroX = positionX + 190;
                 const tiroY = top + 37;
@@ -174,56 +177,33 @@ $(function () {
             inimigo1Y = parseInt(inimigo1.css('top'));
             const maxX = -parseInt(inimigo1.css('width'));
             const limit = (inimigo1X <= maxX);
-            const velocidade = 5;
             inimigo1YRandom = parseInt(Math.random() * 350);
-            respawnInimigo1(limit);
+            respawn(limit, inimigo1);
             moverObjeto(inimigo1, "left", maxX, velocidade);
         }
 
-        function respawnInimigo1(el) {
-            if (el) {
-                inimigo1.css("left", "100%");
-                inimigo1.css("top", inimigo1YRandom);
-            }
-        }
+
         //Inimigo2
         function moveInimigo2() {
-            const velocidade = 2;
             const inimigo2 = $("#inimigo2");
-<<<<<<< HEAD
-            const positionX = parseInt(inimigo2.css('left'));
-            const limit = -parseInt(inimigo2.css('width'));
-            if (positionX <= limit) {
-                inimigo2.css("left", "100%");
-            }
-=======
-            const velocidade = 2;
             inimigo2X = parseInt(inimigo2.css('left'));
             const limit = -parseInt(inimigo2.css('width'));
             respawn(inimigo2X <= limit, inimigo2);
->>>>>>> parent of 4ff2026 (jogo_nava-1.1)
-            moverObjeto(inimigo2, "left", limit, velocidade);
+            moverObjeto(inimigo2, "left", limit, velocidade/2);
         }
         //Amigo
         function moveAmigo() {
-            const velocidade = 1;
-<<<<<<< HEAD
-            const amigo = $("#amigo");
-            const positionX = parseInt(amigo.css('right'));
-=======
             amigo = $("#amigo");
             amigoX = parseInt(amigo.css('right'));
->>>>>>> parent of 4ff2026 (jogo_nava-1.1)
             const limit = -parseInt(amigo.css('width'));
-            if (positionX <= limit) {
+            if (amigoX <= limit) {
                 amigo.css("left", "0");
             }
-            moverObjeto(amigo, "right", limit, velocidade);
+            moverObjeto(amigo, "right", limit, 1);
         }
 
         //Colisao
         function colisao() {
-<<<<<<< HEAD
             const inimigo2 = $("#inimigo2");
             const colisao2 = jogador.collision(inimigo2);
             const colisao3 = $("#disparo").collision(inimigo1);
@@ -254,7 +234,7 @@ $(function () {
                     explosao(inimigo2X, inimigo2.css("top"));
                     $("#disparo").css('left', 1000);
                     inimigo2.remove();
-                    reposiciona("inimigo2", 5000);
+                    reposiciona("inimigo2", velocidade *1000);
                     pontos += 50;
                     break;
                 case colisao5.length > 0:
@@ -268,33 +248,29 @@ $(function () {
                     reposiciona("amigo", 6000, "anima3");
                     perdidos++;
                     somPerdido.play();
-=======
-            var colisao1 = jogador.collision(inimigo1);
-            limit = (colisao1.length > 0)
-            if (limit) {
-                explosao1(inimigo1X, inimigo1Y);
-                respawnInimigo1(limit);
->>>>>>> parent of e808aea (pontos-and-scores)
             }
         }
 
-        function explosao1(x, y) {
+        function explosao(x, y) {
             fundogame.append("<div id='explosao1'></div>");
             somExplosao.play()
             var explosao = $("#explosao1");
-            explosao.css("top",y);
-            explosao.css("left",x);
-            explosao.animate({width:250,opacity:0},300);
+            explosao.css("top", y);
+            explosao.css("left", x);
+            explosao.animate({
+                width: 250,
+                opacity: 0
+            }, 300);
 
-            var tempoExposao = window.setInterval(removeExplosao,300);
-            function removeExplosao(){
+            var tempoExposao = window.setInterval(removeExplosao, 200);
+
+            function removeExplosao() {
                 explosao.remove();
                 window.clearInterval(tempoExposao);
                 tempoExposao = null;
             }
         }
 
-<<<<<<< HEAD
         function reposiciona(stringEl, delay, stringClass = "") {
             var tempoColisao2 = window.setInterval(reposiciona2, delay);
 
@@ -329,19 +305,21 @@ $(function () {
             if (finaljogo == false)
                 $("#vida").css("background-image", 'url(' + "'imgs/energia" + energiaAtual + ".png'" + ')')
         }
-=======
-        var finaljogo =false;
->>>>>>> parent of e808aea (pontos-and-scores)
 
         function GameOver() {
             $("#fundoGame > *").remove();
             $("#fundoGame #inicio").show();
-            window.clearInterval(jogo.timer);
             $("#fundoGame").append("<div id='fim'></div>");
             $("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi:</p>" +"<p>Pontos: " + pontos + "</p><p>Salvos: " + salvos + "</p><p>Perdidos: " + perdidos + "</p><div id='reinicia' onClick='reiniciaJogo()'><button>Jogar Novamente</button></div>");
             energiaAtual=3;
-            jogo.timer = null;
             finaljogo = true;
+            window.clearInterval(jogo.timer);
+            jogo.timer = null;
+            window.clearInterval(level);
+            level = null;
+            musica.pause();
+            somGameOver.currentTime = 3;
+            somGameOver.play();
         }
     }
     reiniciaJogo = () =>{
