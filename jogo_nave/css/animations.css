@@ -1,0 +1,35 @@
+@import url("style.css");
+
+.anima1{
+    background-image: url("../imgs/apache.png");
+    animation: play 0.133s steps(2) infinite;
+
+    -webkit-animation:play 0.133s steps(2) infinite ;
+    -moz-animation: play 0.133s steps(2) infinite;
+    -o-animation: play 0.133s steps(2) infinite;
+    
+}
+
+@keyframes play {
+    from{background-position: 0px;}
+    to{background-position: -512px;}    
+}
+
+.anima2{
+    background-image: url("../imgs/inimigo1.png");
+    animation: play 0.133s steps(2) infinite;
+
+    -webkit-animation:play 0.133s steps(2) infinite ;
+    -moz-animation: play 0.133s steps(2) infinite;
+    -o-animation: play 0.133s steps(2) infinite;
+}
+
+
+.anima3{
+    background-image: url("../imgs/amigo.png");
+    animation: play2 0.8s steps(12) infinite;
+}
+@keyframes play2{
+    from{background-position: 0px;}
+    to{background-position: -528px;}
+}

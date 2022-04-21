@@ -100,6 +100,7 @@ body {
         top: 464px;
         background-image: url('../imgs/amigo.png');
     }
+<<<<<<< HEAD
 
     #amigoMorte {
         background-image: url("../imgs/amigo_morte.png");
@@ -109,6 +110,9 @@ body {
     }
 
     #disparo {
+=======
+    #disparo{
+>>>>>>> parent of e808aea (pontos-and-scores)
         width: 50px;
         height: 8px;
         background-image: url("../imgs/disparo.png");
@@ -126,6 +130,7 @@ body {
         background-image: url("../imgs/explosao.png");
     }
 
+<<<<<<< HEAD
     #placar {
         height: 50px;
         width: 750px;
@@ -141,6 +146,9 @@ body {
         right: 7px;
         background-image: url("../imgs/energia3.png");
     }
+=======
+}
+>>>>>>> parent of e808aea (pontos-and-scores)
 
     #fim h3 {
         font-size: 20px;

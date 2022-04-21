@@ -29,20 +29,23 @@ $(function () {
     //Funções
      function inicio(){
         $("#inicio").hide();
-        //Constantes e variaveis
         fundogame.append('<div id="jogador" class="anima1"></div>');
         fundogame.append('<div id="inimigo1" class="anima2"></div>');
         fundogame.append('<div id="inimigo2"></div>');
         fundogame.append('<div id="amigo" class="anima3"></div>');
+<<<<<<< HEAD
         fundogame.append("<div id='placar'></div>");
         fundogame.append("<div id='vida'></div>")
         var finaljogo = false;
+=======
+>>>>>>> parent of e808aea (pontos-and-scores)
         const jogador = $("#jogador");
+
         const inimigo1 = $("#inimigo1");
-        var amigo = $("#amigo");
         var inimigo1X;
         var inimigo1Y;
         var inimigo1YRandom = parseInt(Math.random() * 350);
+<<<<<<< HEAD
         var inimigo2X;
         var amigoX;
 
@@ -58,6 +61,10 @@ $(function () {
             musica.play();
         });
         musica.play();
+=======
+
+        //Constantes e variaveis
+>>>>>>> parent of e808aea (pontos-and-scores)
 
         function moverObjeto(sprite, position, limit, frames) {
             direcao = position;
@@ -82,15 +89,6 @@ $(function () {
                 sprite.css(direcao, move);
             }
         };
-
-        function respawn(value, el) {
-            if (value) {
-                el.css("left", "100%");
-                if (el == inimigo1) {
-                    el.css("top", inimigo1YRandom);
-                }
-            }
-        }
         //Game loop
         jogo.timer = window.setInterval(loop, 13.3);
 
@@ -101,16 +99,19 @@ $(function () {
             moveInimigo2();
             moveAmigo();
             colisao();
+<<<<<<< HEAD
             placar();
             vidas();
             if (energiaAtual < 0) {
                 GameOver();
             }
+=======
+>>>>>>> parent of e808aea (pontos-and-scores)
         }
 
         function moveFundo() {
             esquerda = parseInt(fundogame.css("background-position"));
-            fundogame.css("background-position", esquerda - 1)
+            fundogame.css("background-wwwwposition", esquerda - 1)
         }
 
         //Jogador
@@ -138,6 +139,7 @@ $(function () {
         var podeAtirar = true;
 
         function disparo() {
+            console.log("Tiro")
             if (podeAtirar == true) {
                 somDisparo.play()
                 podeAtirar = false;
@@ -171,27 +173,34 @@ $(function () {
             const limit = (inimigo1X <= maxX);
             const velocidade = 5;
             inimigo1YRandom = parseInt(Math.random() * 350);
-            respawn(limit, inimigo1);
+            respawnInimigo1(limit);
             moverObjeto(inimigo1, "left", maxX, velocidade);
         }
 
-
+        function respawnInimigo1(el) {
+            if (el) {
+                inimigo1.css("left", "100%");
+                inimigo1.css("top", inimigo1YRandom);
+            }
+        }
         //Inimigo2
         function moveInimigo2() {
-            const inimigo2 = $("#inimigo2");
             const velocidade = 2;
-            inimigo2X = parseInt(inimigo2.css('left'));
+            const inimigo2 = $("#inimigo2");
+            const positionX = parseInt(inimigo2.css('left'));
             const limit = -parseInt(inimigo2.css('width'));
-            respawn(inimigo2X <= limit, inimigo2);
+            if (positionX <= limit) {
+                inimigo2.css("left", "100%");
+            }
             moverObjeto(inimigo2, "left", limit, velocidade);
         }
         //Amigo
         function moveAmigo() {
             const velocidade = 1;
-            amigo = $("#amigo");
-            amigoX = parseInt(amigo.css('right'));
+            const amigo = $("#amigo");
+            const positionX = parseInt(amigo.css('right'));
             const limit = -parseInt(amigo.css('width'));
-            if (amigoX <= limit) {
+            if (positionX <= limit) {
                 amigo.css("left", "0");
             }
             moverObjeto(amigo, "right", limit, velocidade);
@@ -199,6 +208,7 @@ $(function () {
 
         //Colisao
         function colisao() {
+<<<<<<< HEAD
             const inimigo2 = $("#inimigo2");
             const colisao2 = jogador.collision(inimigo2);
             const colisao3 = $("#disparo").collision(inimigo1);
@@ -243,29 +253,33 @@ $(function () {
                     reposiciona("amigo", 6000, "anima3");
                     perdidos++;
                     somPerdido.play();
+=======
+            var colisao1 = jogador.collision(inimigo1);
+            limit = (colisao1.length > 0)
+            if (limit) {
+                explosao1(inimigo1X, inimigo1Y);
+                respawnInimigo1(limit);
+>>>>>>> parent of e808aea (pontos-and-scores)
             }
         }
 
-        function explosao(x, y) {
+        function explosao1(x, y) {
             fundogame.append("<div id='explosao1'></div>");
             somExplosao.play()
             var explosao = $("#explosao1");
-            explosao.css("top", y);
-            explosao.css("left", x);
-            explosao.animate({
-                width: 250,
-                opacity: 0
-            }, 300);
+            explosao.css("top",y);
+            explosao.css("left",x);
+            explosao.animate({width:250,opacity:0},300);
 
-            var tempoExposao = window.setInterval(removeExplosao, 200);
-
-            function removeExplosao() {
+            var tempoExposao = window.setInterval(removeExplosao,300);
+            function removeExplosao(){
                 explosao.remove();
                 window.clearInterval(tempoExposao);
                 tempoExposao = null;
             }
         }
 
+<<<<<<< HEAD
         function reposiciona(stringEl, delay, stringClass = "") {
             var tempoColisao2 = window.setInterval(reposiciona2, delay);
 
@@ -300,6 +314,9 @@ $(function () {
             if (finaljogo == false)
                 $("#vida").css("background-image", 'url(' + "'imgs/energia" + energiaAtual + ".png'" + ')')
         }
+=======
+        var finaljogo =false;
+>>>>>>> parent of e808aea (pontos-and-scores)
 
         function GameOver() {
             $("#fundoGame > *").remove();
